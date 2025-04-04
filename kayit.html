@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Üye Kayıt Sayfası</title>
+    <style>
+        .user-info {
+            margin-top: 20px;
+            border-top: 2px solid #000;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Üye Kayıt Formu</h1>
+    <form id="kayitForm" onsubmit="return kayitOl();">
+        <label for="ad">Ad:</label>
+        <input type="text" id="ad" name="ad" required><br><br>
+
+        <label for="soyad">Soyad:</label>
+        <input type="text" id="soyad" name="soyad" required><br><br>
+
+        <label for="email">E-posta:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="sifre">Şifre:</label>
+        <input type="password" id="sifre" name="sifre" required><br><br>
+
+        <input type="submit" value="Kayıt Ol">
+    </form>
+
+    <div class="user-info" id="userList">
+        <!-- Üye bilgileri burada listelenecek -->
+    </div>
+
+    <br>
+    <a href="index.html">Ana Sayfa</a>
+
+    <script>
+        // Kayıt olan kullanıcıların verilerini saklamak için
+        let userList = [];
+
+        function kayitOl() {
+            // Formdan veri al
+            const ad = document.getElementById("ad").value;
+            const soyad = document.getElementById("soyad").value;
+            const email = document.getElementById("email").value;
+            const sifre = document.getElementById("sifre").value;
+
+            // Kullanıcıyı diziye ekle
+            userList.push({ ad, soyad, email, sifre });
+
+            // Kullanıcıyı sayfada listele
+            let userDisplay = "<h2>Üye Bilgileri:</h2><ul>";
+            userList.forEach(user => {
+                userDisplay += `<li>Ad: ${user.ad}, Soyad: ${user.soyad}, E-posta: ${user.email}</li>`;
+            });
+            userDisplay += "</ul>";
+
+            // Kullanıcı bilgilerini ekrana yazdır
+            document.getElementById("userList").innerHTML = userDisplay;
+
+            // Formu sıfırla
+            document.getElementById("kayitForm").reset();
+
+            // Sayfanın yenilenmesini engelle
+            return false;
+        }
+    </script>
+</body>
+</html>
