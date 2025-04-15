@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Üyeler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #2e8b57;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        a {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            background-color: #2e8b57;
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            background-color: #246b45;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kayıtlı Üyeler</h1>
+    <div class="container">
+        <ul id="uyeListesi">
+            <!-- Üyeler burada gösterilecek -->
+        </ul>
+    </div>
+
+    <a href="index.html">Ana Sayfa</a>
+
+    <script>
+        const uyeler = JSON.parse(localStorage.getItem("uyeler")) || [];
+
+        const liste = document.getElementById("uyeListesi");
+        uyeler.forEach(uye => {
+            const li = document.createElement("li");
+            li.textContent = `Ad: ${uye.ad}, Soyad: ${uye.soyad}, E-posta: ${uye.email}`;
+            liste.appendChild(li);
+        });
+    </script>
+</body>
+</html>

@@ -1,12 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
+    <meta charset="UTF-8">
     <title>Üye Kayıt Sayfası</title>
     <style>
-        .user-info {
-            margin-top: 20px;
-            border-top: 2px solid #000;
-            padding-top: 10px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #2e8b57;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="submit"] {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #246b45;
+        }
+
+        a {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            background-color: #2e8b57;
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            background-color: #246b45;
         }
     </style>
 </head>
@@ -14,55 +82,39 @@
     <h1>Üye Kayıt Formu</h1>
     <form id="kayitForm" onsubmit="return kayitOl();">
         <label for="ad">Ad:</label>
-        <input type="text" id="ad" name="ad" required><br><br>
+        <input type="text" id="ad" name="ad" required>
 
         <label for="soyad">Soyad:</label>
-        <input type="text" id="soyad" name="soyad" required><br><br>
+        <input type="text" id="soyad" name="soyad" required>
 
         <label for="email">E-posta:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input type="email" id="email" name="email" required>
 
         <label for="sifre">Şifre:</label>
-        <input type="password" id="sifre" name="sifre" required><br><br>
+        <input type="password" id="sifre" name="sifre" required>
 
         <input type="submit" value="Kayıt Ol">
     </form>
 
-    <div class="user-info" id="userList">
-        <!-- Üye bilgileri burada listelenecek -->
-    </div>
-
-    <br>
     <a href="index.html">Ana Sayfa</a>
 
     <script>
-        // Kayıt olan kullanıcıların verilerini saklamak için
-        let userList = [];
-
         function kayitOl() {
-            // Formdan veri al
             const ad = document.getElementById("ad").value;
             const soyad = document.getElementById("soyad").value;
             const email = document.getElementById("email").value;
-            const sifre = document.getElementById("sifre").value;
 
-            // Kullanıcıyı diziye ekle
-            userList.push({ ad, soyad, email, sifre });
+            const yeniUye = { ad, soyad, email };
 
-            // Kullanıcıyı sayfada listele
-            let userDisplay = "<h2>Üye Bilgileri:</h2><ul>";
-            userList.forEach(user => {
-                userDisplay += `<li>Ad: ${user.ad}, Soyad: ${user.soyad}, E-posta: ${user.email}</li>`;
-            });
-            userDisplay += "</ul>";
+            // Var olan kullanıcı listesi varsa getir, yoksa boş dizi oluştur
+            const mevcutUyeler = JSON.parse(localStorage.getItem("uyeler")) || [];
+            mevcutUyeler.push(yeniUye);
 
-            // Kullanıcı bilgilerini ekrana yazdır
-            document.getElementById("userList").innerHTML = userDisplay;
+            // Güncellenmiş kullanıcı listesini localStorage'a kaydet
+            localStorage.setItem("uyeler", JSON.stringify(mevcutUyeler));
 
-            // Formu sıfırla
-            document.getElementById("kayitForm").reset();
-
-            // Sayfanın yenilenmesini engelle
+            // Kullanıcıyı başka sayfaya yönlendir
+            window.location.href = "uyeler.html";
             return false;
         }
     </script>
