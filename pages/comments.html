@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafe Yorumları</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><img src="logo.png" alt="StudentBrew" class="logo"></a></li>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="cafes.html">Kafeler</a></li>
+                <li><a href="game.html">Balon Oyunu</a></li>
+                <li><a href="coupons.html">Kuponlar</a></li>
+                <li><a href="register.html">Üye Kayıt</a></li>
+                <li><a href="login.html">Üye Girişi</a></li>
+                <li><a href="comments.html">Yorumlar</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+                <li><a href="faq.html">SSS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Kafe Yorumları</h1>
+        <form id="comment-form">
+            <label for="comment-user">Adınız:</label>
+            <input type="text" id="comment-user" required>
+
+            <label for="comment-text">Yorumunuz:</label>
+            <textarea id="comment-text" required></textarea>
+
+            <button type="submit">Yorumu Gönder</button>
+        </form>
+
+        <h2>Yorumlar</h2>
+        <ul id="comment-list">
+            <!-- JavaScript ile yorumlar burada listelenecek -->
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 StudentBrew - Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="../scripts/comments.js"></script>
+</body>
+</html>
