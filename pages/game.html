@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balon Oyunu</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        #game-container {
+            width: 300px;
+            height: 400px;
+            border: 2px solid #444;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff5e6;
+        }
+
+        .balloon {
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            position: absolute;
+        }
+
+        main {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+               <img src="logo.png" alt="StudentBrew" class="logo"></a></li>
+                <li><a href="cafes.html">Kafeler</a></li>
+                <li><a href="game.html">Balon Oyunu</a></li>
+                <li><a href="coupons.html">Kuponlar</a></li>
+                <li><a href="register.html">Üye Kayıt</a></li>
+                <li><a href="login.html">Üye Girişi</a></li>
+                <li><a href="comments.html">Yorumlar</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+                <li><a href="faq.html">SSS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Balon Oyunu 🎈</h1>
+        <p>Balonları patlatarak puan kazan! 5 ve 10 puana ulaşınca kupon kazan.</p>
+
+        <div id="game-container">
+            <!-- JavaScript ile balonlar eklenecek -->
+        </div>
+
+        <p>Puanınız: <span id="score">0</span></p>
+        <p id="reward-message"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 StudentBrew - Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const gameContainer = document.getElementById("game-container");
+            const scoreDisplay = document.getElementById("score");
+            const rewardMessage = document.getElementById("reward-message");
+
+            let score = 0;
+
+            function createBalloon() {
+                let balloon = document.createElement("div");
+                balloon.classList.add("balloon");
+                balloon.textContent = "🎈";
+                balloon.style.left = Math.random() * 80 + "%";
+                balloon.style.top = "100%";
+
+                let position = 100;
+                let interval = setInterval(() => {
+                    if (position <= -10) {
+                        clearInterval(interval);
+                        balloon.remove();
+                        return;
+                    }
+                    position -= 1;
+                    balloon.style.top = position + "%";
+                }, 50);
+
+                balloon.addEventListener("click", () => {
+                    clearInterval(interval);
+                    balloon.remove();
+                    score++;
+                    scoreDisplay.textContent = score;
+                    checkReward();
+                });
+
+                gameContainer.appendChild(balloon);
+            }
+
+            function checkReward() {
+                let coupons = JSON.parse(localStorage.getItem("coupons")) || [];
+                if (score === 5) {
+                    rewardMessage.textContent = "Tebrikler! %10 indirim kuponu kazandınız!";
+                    coupons.push("%10 indirim kuponu");
+                } else if (score === 10) {
+                    rewardMessage.textContent = "Harika! %20 indirim kuponu kazandınız!";
+                    coupons.push("%20 indirim kuponu");
+                }
+                localStorage.setItem("coupons", JSON.stringify(coupons));
+            }
+
+            // Her 2 saniyede bir yeni balon oluştur
+            setInterval(() => {
+                createBalloon();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
